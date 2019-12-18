@@ -1,5 +1,4 @@
 import unittest
-
 from dwetl.reader.list_reader import ListReader
 from dwetl.writer.list_writer import ListWriter
 from dwetl.job_info import JobInfo
@@ -10,15 +9,6 @@ class TestPreprocess(unittest.TestCase):
     def test_preprocess(self):
         """
         tests the case where there's no whitespace
-        1-sample_data
-        2-sample_json_config
-        3-pk_list
-        4-expected_keys
-
-        for :
-            test_preprocess
-            test_preprocess_lots_of_whitespace_and_none
-            test_pp
         """
         sample_data = [
             {   # pk data
@@ -35,29 +25,6 @@ class TestPreprocess(unittest.TestCase):
                 'in_z13_imprint': 'New York, Haskell House Publishers, 1968'
             }
         ]
-
-''''''''''/////////''''''''''
-
-
-                sample_data = [
-                    {   # pk data
-                        'db_operation_cd': 'U',
-                        'dw_stg_2_aleph_lbry_name': 'mai60',
-                        'em_create_dw_prcsng_cycle_id': '-1',
-                        # z00 don't have trims
-                        'in_z00_doc_number': '000019087',
-                        'in_z00_no_lines': '0011',
-                        'in_z00_data_len': '000400',
-                        # z13 has trims
-                        'in_z13_title': 'A literary history of America',
-                        'in_z13_author': 'Wendell, Barrett, 1855-1921',
-                        'in_z13_imprint': 'New York, Haskell House Publishers, 1968'
-                    }
-                ]
-
-''''''''''/////////''''''''''
-
-
         reader = ListReader(sample_data)
         writer = ListWriter()
 
@@ -109,56 +76,6 @@ class TestPreprocess(unittest.TestCase):
                 }
             }
         }
-
-
-
-''''''''''/////////''''''''''
-        sample_json_config = {
-            'z00_doc_number': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "N/A",
-                    "pre_detailed_instructions": "N/A"
-                }
-            },
-            'z00_no_lines': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "N/A",
-                    "pre_detailed_instructions": "N/A"
-                }
-            },
-            'in_z00_data_len': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "N/A",
-                    "pre_detailed_instructions": "N/A"
-                }
-            },
-            'z13_title': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "Trim",
-                    "pre_detailed_instructions": "Remove leading and trailing spaces"
-                }
-            },
-            'z13_author': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "Trim",
-                    "pre_detailed_instructions": "Remove leading and trailing spaces"
-                }
-            },
-            'z13_imprint': {
-                "preprocessing_info": {
-                    "pre_or_post_dq": "N/A",
-                    "pre_action": "Trim",
-                    "pre_detailed_instructions": "Remove leading and trailing spaces"
-                }
-            }
-        }
-
-''''''''''/////////''''''''''
 
 
         pk_list = ['db_operation_cd', 'dw_stg_2_aleph_lbry_name', 'in_z00_doc_number', 'em_create_dw_prcsng_cycle_id']
