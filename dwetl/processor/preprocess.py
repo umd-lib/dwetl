@@ -24,14 +24,17 @@ class Preprocess(Processor):
         Given a key from item, returns True if preprocess is needed
         based on the json_config
         """
+
         try:
             # find matching key in the json_config remove the "in_"
             key_json = json_config[key[3:]]
             # get preprocess stanza out
             if key_json['preprocessing_info']['pre_action'] == 'Trim':
                 return True
+                print('true')
             else:
                 return False
+                print('false')
         except KeyError:
             # TODO: not sure about this
             return False
@@ -41,12 +44,10 @@ class Preprocess(Processor):
         """
         if need_preprocess is true, trim the item
         """
-
+        #pdb.set_trace()
         out_dict = {}
         invalid_keys = ['rec_type_cd', 'rec_trigger_key', '_sa_instance_state']
-
-        #pdb.set_trace()
-
+        pdb.set_trace()
         for key, val in item.items():
 
             # skip invalid keys and dq and t and pp keys
