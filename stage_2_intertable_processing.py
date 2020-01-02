@@ -26,7 +26,8 @@ def stage_2_intertable_processing(job_info):
         'dw_stg_2_bib_rec_z00': 'bibliographic_record_dimension',
         'dw_stg_2_bib_rec_z13': 'bibliographic_record_dimension',
         'dw_stg_2_bib_rec_z13u': 'bibliographic_record_dimension',
-        'dw_stg_2_bib_rec_z00_field': 'bibliographic_record_dimension'
+        'dw_stg_2_bib_rec_z00_field': 'bibliographic_record_dimension',
+        #'dw_stg_2_lbry_item_z30': 'library_item_dimension'
     }
 
 
