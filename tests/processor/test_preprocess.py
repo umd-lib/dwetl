@@ -412,91 +412,94 @@ class TestPreprocess(unittest.TestCase):
 
 
 
-#
-#
-# """
-#
-# tiff's work below
-#
-# """
-#
-#
-#
-#
-#
-#         def test_z13u_pp(self):
-#
-#             sample_data = [ {
-#                 'db_operation_cd': 'I',
-#                 'dw_stg_2_aleph_lbry_name': 'mai01',
-#                 'em_create_dw_job_exectn_id': 1,
-#                 'em_create_dw_job_name': 'CopyStage1ToStage2',
-#                 'em_create_dw_job_version_no': '1.0.0',
-#                 'em_create_dw_prcsng_cycle_id': 2,
-#                 'in_z13u_user_defined_2': '',
-#                 'in_z13u_user_defined_2_code': '     ',
-#                 'in_z13u_user_defined_3': '^^^^^nam^^22^^^^^3u^4500',
-#                 'in_z13u_user_defined_3_code': 'LDR  ',
-#                 'in_z13u_user_defined_6': 'CIRC-CREATED SUPPRESSED ||',
-#                 'in_z13u_user_defined_6_code': '     ',
-#                 }
-#             ]
-#
-#             reader = ListReader(sample_data)
-#             writer = ListWriter()
-#
-#             job_info = JobInfo(-1, 'test_user', '1', '1')
-#
-#             logger = None
-#
-#             sample_json_config = [
-#                 {'z13u_user_defined_2': {
-#                     'preprocessing_info': {'pre_action': 'Trim',
-#                                            'pre_detailed_instructions': 'Remove '
-#                                            'leading '
-#                                            'and '
-#                                            'trailing '
-#                                            'spaces',
-#                                            'pre_or_post_dq': 'Pre'
-#                                            }},
-#                     'z13u_user_defined_3': {
-#                         'preprocessing_info': {'pre_action': '',
-#                                                'pre_detailed_instructions': '',
-#                                                'pre_or_post_dq': 'N/A'}},
-#                     'z13u_user_defined_6': {
-#                         'preprocessing_info': {'pre_action': 'Trim',
-#                                                'pre_detailed_instructions': 'Remove '
-#                                                'leading '
-#                                                'and '
-#                                                'trailing '
-#                                                'spaces',
-#                                                'pre_or_post_dq': 'N/A'}
-#                                                 }
-#                 }]
-#
-#
-#
-#             pk_list = ['db_operation_cd', 'dw_stg_2_aleph_lbry_name', 'in_z13u_rec_key', 'em_create_dw_prcsng_cycle_id']
-#
-#             step = Preprocess(reader, writer, job_info, logger, sample_json_config, pk_list)
-#             step.execute()
-#             results = step.writer.list
-#
-#             expected_keys = sorted([
-#                 'dw_stg_2_aleph_lbry_name', 'db_operation_cd',
-#                 'in_z13u_rec_key',
-#                 'pp_z13u_user_defined_2',
-#                 'pp_z13u_user_defined_3',
-#                 'pp_z13u_user_defined_3_code',
-#                 'pp_z13u_user_defined_6',
-#                 'pp_z13u_user_defined_6_code',
-#                 'em_update_dw_prcsng_cycle_id', 'em_update_dw_job_exectn_id',
-#                 'em_update_dw_job_name', 'em_update_dw_job_version_no',
-#                 'em_update_user_id', 'em_update_tmstmp', 'em_create_dw_prcsng_cycle_id'
-#             ])
-#             self.assertEqual(False, Preprocess.need_preprocess(sample_json_config, ''))
-#             self.assertEqual(expected_keys, sorted(list(results[0].keys())))
-#             self.assertEqual("000181506", results[0]['pp_z00_doc_number'])
-#             self.assertEqual("0038", results[0]['pp_z00_no_lines'])
-#             self.assertEqual("001726", results[0]['pp_z00_data_len'])
-#             self.assertEqual("", results[0]['pp_z00_data'])
+
+
+    """
+
+    tiff's work below
+
+    """
+
+
+
+
+
+    def test_z13u_pp(self):
+
+        sample_data = [ {
+            'db_operation_cd': 'I',
+            'dw_stg_2_aleph_lbry_name': 'mai01',
+            'em_create_dw_job_exectn_id': 1,
+            'em_create_dw_job_name': 'CopyStage1ToStage2',
+            'em_create_dw_job_version_no': '1.0.0',
+            'em_create_dw_prcsng_cycle_id': 2,
+            'em_create_user_id': 'dw',
+            'in_z13u_user_defined_2': ' ',
+            'in_z13u_user_defined_3': '^^^^^nam^^22^^^^^3u^4500',
+            'in_z13u_user_defined_6': '  CIRC-CREATED SUPPRESSED ||  ',
+            }
+        ]
+
+        reader = ListReader(sample_data)
+        writer = ListWriter()
+
+        job_info = JobInfo(-1, 'test_user', '1', '1')
+
+        logger = None
+        
+        sample_json_config = {'z13u_user_defined_2': {
+                'preprocessing_info': {'pre_action': 'Trim',
+                                       'pre_detailed_instructions': 'Remove '
+                                       'leading '
+                                       'and '
+                                       'trailing '
+                                       'spaces',
+                                       'pre_or_post_dq': 'Pre'
+                                       }},
+                'z13u_user_defined_3': {
+                    'preprocessing_info': {'pre_action': '',
+                                           'pre_detailed_instructions': '',
+                                           'pre_or_post_dq': 'N/A'}},
+                'z13u_user_defined_6': {
+                    'preprocessing_info': {'pre_action': 'Trim',
+                                           'pre_detailed_instructions': 'Remove '
+                                           'leading '
+                                           'and '
+                                           'trailing '
+                                           'spaces',
+                                           'pre_or_post_dq': 'N/A'}
+                                            }
+            }
+
+
+
+        pk_list = ['db_operation_cd', 'dw_stg_2_aleph_lbry_name', 'in_z13u_rec_key', 'em_create_dw_prcsng_cycle_id']
+
+        step = Preprocess(reader, writer, job_info, logger, sample_json_config, pk_list)
+        step.execute()
+        results = step.writer.list
+
+        expected_keys = sorted([
+            'db_operation_cd',
+            'dw_stg_2_aleph_lbry_name', 
+            'em_create_dw_job_exectn_id', 
+            'em_create_dw_job_name',
+            'em_create_dw_job_version_no', 
+            'em_create_dw_prcsng_cycle_id', 
+            'em_create_user_id', 
+            'em_update_dw_job_exectn_id',
+            'em_update_dw_job_name', 
+            'em_update_dw_job_version_no',
+            'em_update_dw_prcsng_cycle_id', 
+            'em_update_tmstmp', 
+            'em_update_user_id', 
+            'pp_z13u_user_defined_2',
+            'pp_z13u_user_defined_3',
+            'pp_z13u_user_defined_6',
+            
+        ])
+        self.assertEqual(False, Preprocess.need_preprocess(sample_json_config, ''))
+        self.assertEqual(expected_keys, sorted(list(results[0].keys())))
+        self.assertEqual("", results[0]['pp_z13u_user_defined_2'])
+        self.assertEqual("^^^^^nam^^22^^^^^3u^4500", results[0]['pp_z13u_user_defined_3'])
+        self.assertEqual("CIRC-CREATED SUPPRESSED ||", results[0]['pp_z13u_user_defined_6'])
