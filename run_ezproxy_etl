@@ -10,4 +10,4 @@ SUBJECT="ezproxy_etl Completed"
 else
 SUBJECT="exproxy_etl Failed"
 fi
-mail -s "$SUBJECT" libclas@umd.edu < $OUTFILE
+mail -s "$SUBJECT" nasadi1@umd.edu < $OUTFILE

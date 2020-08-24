@@ -37,7 +37,7 @@ def main():
 					if seconds >= get_file_or_folder_age(folder_path):
 						remove_folder(folder_path)
 					else:
-						print("no processed aleph files older than the assigned retention policy")
+						print("no processed aleph files older than the assigned days of retention policy")
 		else:
 			for root_folder, folders, files in os.walk(path):
 				for file in files:
